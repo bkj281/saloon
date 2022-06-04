@@ -65,9 +65,21 @@ const info = async (req, res) => {
   }
 }
 
+const ownersShop = async (req, res) => {
+  try {
+    const shops = await Shop.find({ userId: req.params._id });
+    // console.log(shops);
+    return res.status(200).json(shops);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: 'Unexpected error occured!!' });
+  }
+}
+
 module.exports = {
   createShop,
   allShops,
   shopDetails,
-  info
+  info,
+  ownersShop
 };

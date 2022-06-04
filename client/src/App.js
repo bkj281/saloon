@@ -15,6 +15,9 @@ import SaloonRegistration from './pages/SaloonRegistration';
 import MyInfo from './pages/MyInfo';
 import MyOrders from './pages/MyOrders';
 
+// Shopkeeper
+import ShopHome from './shopkeeper/ShopHome';
+
 const App = () => {
 	return (
 		<Layout>
@@ -33,6 +36,8 @@ const App = () => {
 
 				<Route path="/myInfo/:id" element={<MyInfo />} />
 				<Route path='/orders/:_id' element={<MyOrders />} />
+
+				<Route path='/shopkeeper/:_id' element={<ShopHome />} />
 			</Routes>
 		</Layout>
 	);

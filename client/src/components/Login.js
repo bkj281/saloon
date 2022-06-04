@@ -19,9 +19,12 @@ const Login = () => {
 
     useEffect(()=>{
         if(userInfo){
-            navigate("/");
+            if (userInfo.user.Role === 'user')
+                navigate("/");
+            else if (userInfo.user.Role === 'shopkeeper')
+                navigate(`/shopkeeper/${userInfo.user._id}`);
         }
-    },[navigate,userInfo])
+    }, [navigate, userInfo])
 
     const submitHandler = (e) =>{
         e.preventDefault();

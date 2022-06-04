@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// logout action
+import logo from '../assets/logo.png';
 import { logout } from '../actions/userActions';
 const Menu = () => {
 	const dispatch = useDispatch();
@@ -24,7 +24,8 @@ const Menu = () => {
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
 			<div className="container-fluid">
 				<Link to="/" className="navbar-brand">
-					ApnaSaloon
+					<img src={logo} alt='logo' className='mx-3' style={{ width: '2.2rem', height: 'auto' }} />
+					ApniSaloon
 				</Link>
 				<button
 					className="navbar-toggler"
