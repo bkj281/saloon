@@ -19,8 +19,8 @@ function ShopDetails() {
 	const dispatch = useDispatch()
 	const [flag, setFlag] = useState(false);
 	const [services, setServices] = useState([]);
-	const [serviceType, setServiceType] = useState('hairCutting');
-	const [active, setActive] = useState('hairCutting');
+	const [serviceType, setServiceType] = useState('HairCutting');
+	const [active, setActive] = useState('HairCutting');
 
 	const shopDetails = useSelector((state) => state.shopDetails)
 	const { loading, error, shop } = shopDetails
@@ -41,7 +41,7 @@ function ShopDetails() {
 		setActive(id);
 	}
 	if (serviceType === '') {
-		setServiceType('hairCutting')
+		setServiceType('HairCutting')
 	}
 	return (
 		<div>
@@ -51,9 +51,8 @@ function ShopDetails() {
 				{error && <Message>{error}</Message>}
 				{loading && <Loader />}
 				<div className="row">
-					<h1>{shop.ShopName}</h1>
 					<div className="col-2" md={2}>
-						{services && <Services handleServiceClick={handleServiceClick} services={services} active={active} />}
+						{services && <Services shopName={shop.ShopName} handleServiceClick={handleServiceClick} services={services} active={active} />}
 					</div>
 					<div className="col-md-7">
 						{/* {flag?console.log(shop.ServiceId, serviceType):console.log(0)} */}

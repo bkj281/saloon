@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { removeFromCart } from '../actions/cartAction';
-import { createOrder } from '../actions/orderAction';
 import { CART_CLEAR_ITEMS } from '../constants/cartConstants';
 import Loader from './Loader';
 // import Message from './Message';
 import { useNavigate } from 'react-router-dom';
 
 function CartItems() {
+
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
 
@@ -32,22 +32,42 @@ function CartItems() {
   const { loading, success } = orderCreate;
 
 
-  const handleBooking = () => {
+  const handleBooking = async () => {
+
     if (!localStorage.getItem('user')) {
       alert('Login First!');
       navigate('/login');
-    } else if (!date || !time || time === "false") {
+    } 
+    else if (!date || !time || time === "false") {
       return alert('Select Valid date & time');
-    } else {
+    } 
+    else {
       const ShopId = shop._id;
       const UserId = userInfo.user?._id;
       const ShopName = shop?.ShopName;
       const ShopAddress = shop?.shopAddress;
       const OrderData = { cart: cartItems, Total: cart.TotalPrice, Time: time, Date: date, ShopId, UserId, ShopName, ShopAddress }
-      // console.log(OrderData);
-      dispatch(createOrder(OrderData));
-      console.log(store.getState());
-      if (success) {
+
+      console.log(OrderData);
+
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}`,
+      }
+      
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/cart/add-to-cart`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(OrderData),
+      });
+
+      const result = await res.json();
+      console.log(result);
+      // setShops(result);
+      if (res.status === 409) {
+        return alert('Slot not available!\nSelect Another!!');
+      }
+      else if (res.status === 201) {
         alert('Booking Done!!');
         localStorage.removeItem('cartItems');
         navigate('/');

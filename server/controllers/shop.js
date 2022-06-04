@@ -7,9 +7,9 @@ const createShop = async (req, res) => {
     // }
 
     let ServiceId = {
-      hairCutting: [],
+      HairCutting: [],
       Shaving: [],
-      hairColor: [],
+      HairColor: [],
       Facial: [],
       FaceWash: [],
       Bleach: [],

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // login action
 import { login } from '../actions/userActions';
 import Loader from './Loader';
@@ -47,7 +47,7 @@ const Login = () => {
                                 <input type="password" onChange={e=>setPassword(e.target.value)} placeholder="Password" className="form-control" id="exampleInputPassword1" />
                             </div>
                             <div className="d-flex align-items-center justify-content-between">
-                                <div><a href="/forget">Forget Password?</a></div>
+                                <div><Link to={"/forgot-password"}>Forget Password?</Link></div>
                             </div>
                             <div className="pb-2">
                                 <button type="submit" className="btn btn-dark w-100 font-weight-bold mt-2">Submit</button>
