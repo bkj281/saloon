@@ -15,6 +15,8 @@ import {
 
 } from '../constants/userConstants'
 import { backendUrl } from "../constants/urlConstant ";
+import { useNavigate } from "react-router-dom";
+
 export const login = (email, password) => async (dispatch) => {
     try {
         dispatch({
@@ -77,13 +79,7 @@ export const register = (name, email, password, City, State, phoneNo, Pincode, R
             type: USER_REGISTER_SUCCESS,
             payload: data,
         })
-    
-        dispatch({
-            type: USER_LOGIN_SUCCESS,
-            payload: data,
-        })
-    
-        localStorage.setItem('userInfo', JSON.stringify(data))
+        
     } catch (error) {
         dispatch({
             type: USER_REGISTER_FAIL,
