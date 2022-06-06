@@ -74,7 +74,7 @@ const Menu = () => {
 												My Orders
 											</a>
 											{
-												userInfo.user.Role === "shopkeeper" && (
+												userInfo?.user?.Role === "shopkeeper" && (
 													userInfo?.user.ShopId?.ShopName ? <a className="dropdown-item" href='/registerSaloon'>+ Add Another Saloon</a>
 														: <a className="dropdown-item" href='/registerSaloon'>Register Your Saloon Here</a>
 												)

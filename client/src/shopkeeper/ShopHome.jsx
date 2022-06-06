@@ -42,7 +42,7 @@ const ShopHome = () => {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [loadData]);
 
   return (
     <>

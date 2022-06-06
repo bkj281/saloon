@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Loader from '../components/Loader';
-import { Col, Container, Image, ListGroup, Row } from 'react-bootstrap';
+import { Button, Col, Container, Image, ListGroup, Row } from 'react-bootstrap';
 
 
 const MyInfo = () => {
@@ -58,7 +58,7 @@ const MyInfo = () => {
   const load = () => {
     loadData();
   }
-
+  // load();
   useEffect(() => {
     load();
   }, []);
@@ -105,6 +105,9 @@ const MyInfo = () => {
               </Col>
               <Col xs={6} md={6}>
                 <h4>{`${user.City}, ${user.State}, ${user.Pincode}`}</h4>
+              </Col>
+              <Col xs={6} mad={6}>
+                <Link to={`/myInfo/${params.id}/edit`} className='btn btn-warning rounded' >Update</Link>
               </Col>
             </Row>
           </Container>

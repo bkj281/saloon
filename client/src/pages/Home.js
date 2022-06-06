@@ -9,7 +9,7 @@ const Home = () => {
 
     useEffect(() => {
         if (localStorage.getItem('userInfo'))
-            if (JSON.parse(localStorage.getItem('userInfo')).user.Role === 'shopkeeper')
+            if (JSON.parse(localStorage.getItem('userInfo'))?.user?.Role === 'shopkeeper')
                 navigate(`/shopkeeper/${localStorage.getItem('user')}`)
     }, []);
 

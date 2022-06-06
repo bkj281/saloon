@@ -13,6 +13,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import SaloonRegistration from './pages/SaloonRegistration';
 import MyInfo from './pages/MyInfo';
+import MyInfoEdit from './pages/MyInfoEdit';
 import MyOrders from './pages/MyOrders';
 
 // Shopkeeper
@@ -35,6 +36,7 @@ const App = () => {
 				<Route path='*' element={<NotFound />} />
 
 				<Route path="/myInfo/:id" element={<MyInfo />} />
+				<Route path="/myInfo/:id/edit" element={<MyInfoEdit />} />
 				<Route path='/orders/:_id' element={<MyOrders />} />
 
 				<Route path='/shopkeeper/:_id' element={<ShopHome />} />
