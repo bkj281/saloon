@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
-import { Col, Container, Image, ListGroup, Row } from 'react-bootstrap';
+import sty from '../assets/sty.jpg';
+import { Button, Col, Container, Image, ListGroup, Row } from 'react-bootstrap';
 
 
 const MyInfo = () => {
@@ -12,6 +13,8 @@ const MyInfo = () => {
   const [user, setUser] = useState({});
   const [role] = useState(JSON.parse(localStorage.getItem('userInfo')).user.Role);
   const [shop, setShop] = useState({});
+  const [all, setAll] = useState([]);
+  const [active, setActive] = useState(0);
 
 
   const loadData = async () => {
@@ -44,8 +47,9 @@ const MyInfo = () => {
         });
 
         const result2 = await res2.json();
-        setShop(result2.user);  
-        // console.log(result2.user);
+        setShop(result2.user[0]);
+        setAll(result2.user);  
+        console.log('Koi hai?', result2.user);
       }
 
       setLoading(false);
@@ -63,8 +67,12 @@ const MyInfo = () => {
     load();
   }, []);
 
-  const ary = shop.ServiceId? Object.keys(shop.ServiceId).map((obj) => 
-    <ListGroup.Item>
+  useEffect(() => {
+    setShop(all[active]);
+  }, [active]);
+
+  const ary = shop && shop.ServiceId? Object.keys(shop.ServiceId).map((obj, id) => 
+    <ListGroup.Item key={id}>
       {`${obj} : ${shop.ServiceId[obj].length !== 0?shop.ServiceId[obj].map((i) => i.Style): `No Style Available`}`}
     </ListGroup.Item>
   ):null;
@@ -107,8 +115,21 @@ const MyInfo = () => {
                 <h4>{`${user.City}, ${user.State}, ${user.Pincode}`}</h4>
               </Col>
             </Row>
+            <hr />
           </Container>
-        {role === "shopkeeper"?
+        {role === "shopkeeper" && 
+          <Container>
+            <Row>
+              {all.length !== 0 && all.map((a, id) => (
+                <Col key={id} xs={4} md={1}>
+                  <Button variant={`${active === id?'secondary':'outline-secondary'}`} className='btn-sm' disabled={active === id} onClick={() => setActive(id)}>
+                    {a.ShopName}
+                  </Button>
+                </Col>
+              ))}
+            </Row>
+          </Container>}
+        {role === "shopkeeper"? shop ?
           <Container>
             <hr />
             <Row>
@@ -119,7 +140,7 @@ const MyInfo = () => {
                 <h4>{shop.ShopName}</h4>
               </Col>
               <Col xs={0} md={6}>
-                <Image src={shop.shopImage} alt="Logo" roundedCircle style={{ height:"auto", width:"3rem" }} />
+                <Image src={shop.shopImage} alt="Logo" roundedCircle style={{ height:"3rem", width:"3rem" }} />
               </Col>
             </Row>
             <Row>
@@ -148,7 +169,7 @@ const MyInfo = () => {
                 </ListGroup>
               </Col>
             </Row>
-          </Container>:null}
+          </Container>:<Container><h3>No Shops Registered</h3></Container>:<Image className='d-block mx-auto' src={sty} alt={'Fill Page'} />}
         </>
       }
     </>

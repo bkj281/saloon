@@ -57,7 +57,7 @@ const shopDetails = async (req, res) => {
 
 const info = async (req, res) => {
   try {
-    const user = await Shop.findOne({ userId: req.params._id});
+    const user = await Shop.find({ userId: req.params._id});
     return res.status(200).json({ user });
   } catch (error) {
     console.log(error);
