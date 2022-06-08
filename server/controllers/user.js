@@ -58,6 +58,26 @@ const info = async (req, res) => {
   }
 }
 
+const updateInfo = async(req, res) => {
+    // findById function will find product by id and then return the object that has found else return null
+    // console.log(req.params);
+    try{
+      
+      const user = await User.findByIdAndUpdate(
+        {_id:req.params.id},
+        {
+            $set : req.body
+        }    
+      ); 
+
+
+      return res.status(200).json(user);
+    }catch (error) {
+      console.log(error);
+      return res.status(500).json({ msg: "Unexpected Error Occured!" });
+    }
+};
+
 const sendOtp = async (req, res) => {
   try {
     const email = req.body.email;
@@ -142,6 +162,7 @@ module.exports = {
   createUser,
   login,
   info,
+  updateInfo
   sendOtp,
   verifyOtp,
   updatePwd

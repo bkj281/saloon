@@ -28,6 +28,7 @@ const AllStore = () => {
 	useEffect(() => {
 		loadData()
 	}, [dispatch]);
+	// loadData();
 
 	return (
 		<>
