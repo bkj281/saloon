@@ -6,8 +6,7 @@ const {
   createUser,
   login,
   info,
-  updateInfo
-
+  updateInfo,
   sendOtp,
   verifyOtp,
   updatePwd

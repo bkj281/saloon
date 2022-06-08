@@ -38,9 +38,9 @@ const ShopStore = ({ shops }) => {
                 <h5 className="card-title">{shop.ShopName}</h5>
                 <p className="card-text">{shop.openTiming} - {shop.closeTiming}</p>
                 <p className="card-text">{shop.shopAddress},{' '}{shop.shopPincode}</p>
-                {/* <Link to={`shop/${shop._id}`} className="btn btn-warning">
-                  Edit
-                </Link> */}
+                <Link to={`/shop/${shop._id}/edit`} className="btn btn-warning">
+                  Add Services
+                </Link>
               </div>
             </div>
           </div>

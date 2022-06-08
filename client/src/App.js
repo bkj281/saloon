@@ -19,6 +19,7 @@ import ForgotPassword from './pages/ForgotPassword';
 
 // Shopkeeper
 import ShopHome from './shopkeeper/ShopHome';
+import ShopEdit from './shopkeeper/ShopEdit';
 
 const App = () => {
 	return (
@@ -27,7 +28,7 @@ const App = () => {
 				<Route path="/" element={<Home />} exact />
 				<Route path="/about" element={<About />} />
 				<Route path="/shop/:id" element={<ShopDetails />} />
-
+				<Route path='/shop/:_id/edit' element={<ShopEdit />} />
 				{/* login form path */}
 				<Route path="/login" element={<Login />} />
 
@@ -41,6 +42,7 @@ const App = () => {
 				<Route path='/orders/:_id' element={<MyOrders />} />
 
 				<Route path='/shopkeeper/:_id' element={<ShopHome />} />
+				
 				<Route path='/forgot-password' element={<ForgotPassword />} />
 			</Routes>
 		</Layout>
