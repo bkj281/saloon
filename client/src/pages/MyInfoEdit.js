@@ -6,12 +6,12 @@ const MyInfoEdit = () => {
     const params = useParams();
     
     const navigate = useNavigate();
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
-	const [city, setCity] = useState("");
-	const [cityState, setCityState] = useState("");
-	const [PinCode, setPinCode] = useState("");
-	const [phoneNo, setPhoneNo] = useState("");
+	  const [name, setName] = useState("");
+	  const [email, setEmail] = useState("");
+	  const [city, setCity] = useState("");
+	  const [cityState, setCityState] = useState("");
+	  const [PinCode, setPinCode] = useState("");
+	  const [phoneNo, setPhoneNo] = useState("");
     // const [user, setUser] = useState({});
     const [loading, setLoading] = useState(false);
     // const [role] = useState(JSON.parse(localStorage.getItem('userInfo')).user.Role);
@@ -56,7 +56,7 @@ const MyInfoEdit = () => {
             'Authorization': `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}`,
             }
           }
-          const {data} = await axios.post(`http://localhost:5500/user/info/${params.id}`,{},config);
+          const {data} = await axios.post(`${process.env.REACT_APP_API_URL}/user/info/${params.id}`,{},config);
           console.log(data.user);
           setName(data.user.name);
           setEmail(data.user.email);
@@ -86,7 +86,7 @@ const MyInfoEdit = () => {
         }
         setLoading(true);
     
-          const {data} = await axios.put(`http://localhost:5500/user/info/${params.id}`,user,config);
+          const {data} = await axios.put(`${process.env.REACT_APP_API_URL}/user/info/${params.id}`,user,config);
           setName(data.user.name);
           setEmail(data.user.email);
           setCity(data.user.City);

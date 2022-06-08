@@ -162,7 +162,7 @@ module.exports = {
   createUser,
   login,
   info,
-  updateInfo
+  updateInfo,
   sendOtp,
   verifyOtp,
   updatePwd

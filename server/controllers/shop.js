@@ -29,6 +29,26 @@ const createShop = async (req, res) => {
   }
 }
 
+const updateShop = async(req, res) => {
+  // findById function will find product by id and then return the object that has found else return null
+  // console.log(req.params);
+  try{
+    
+    const shop = await Shop.findByIdAndUpdate(
+      {_id:req.params.id},
+      {
+        $set : req.body
+      }    
+    ); 
+
+
+    return res.status(200).json(shop);
+  }catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: "Unexpected Error Occured!" });
+  }
+};
+
 const allShops = async (req, res) => {
   try {
 		let list;
@@ -81,5 +101,6 @@ module.exports = {
   allShops,
   shopDetails,
   info,
-  ownersShop
+  ownersShop,
+  updateShop
 };
