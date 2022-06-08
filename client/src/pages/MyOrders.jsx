@@ -34,7 +34,7 @@ const MyOrders = () => {
       const result = await res.json();
       
       setCart(result);
-      // console.log(result);
+      // console.log('Koi hai', result);
 
       setLoading(false);
 
@@ -43,7 +43,7 @@ const MyOrders = () => {
     }
   }
   
-  const display = cart.map((order, id) => (
+  const display = cart? cart.map((order, id) => (
     <tr key={id}>
       <td>{id+1}</td>
       <td>{role === "user"?order.ShopName: order.UserName}</td>
@@ -53,7 +53,7 @@ const MyOrders = () => {
       <td>{order.TimeSlot}</td>
       <td>{order.Date}</td>
     </tr>
-  ));
+  )): <tr><td></td><td></td><td></td><td>No Orders to show</td><td></td><td></td><td></td></tr>;
 
   useEffect(
     () => loadData() 
@@ -77,7 +77,7 @@ const MyOrders = () => {
           </thead>
           {loading? <Loader />:
             <tbody>
-              { display}
+              { display }
             </tbody>
           }
         </Table>

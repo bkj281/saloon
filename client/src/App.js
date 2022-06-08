@@ -15,6 +15,7 @@ import SaloonRegistration from './pages/SaloonRegistration';
 import MyInfo from './pages/MyInfo';
 import MyInfoEdit from './pages/MyInfoEdit';
 import MyOrders from './pages/MyOrders';
+import ForgotPassword from './pages/ForgotPassword';
 
 // Shopkeeper
 import ShopHome from './shopkeeper/ShopHome';
@@ -40,6 +41,7 @@ const App = () => {
 				<Route path='/orders/:_id' element={<MyOrders />} />
 
 				<Route path='/shopkeeper/:_id' element={<ShopHome />} />
+				<Route path='/forgot-password' element={<ForgotPassword />} />
 			</Routes>
 		</Layout>
 	);

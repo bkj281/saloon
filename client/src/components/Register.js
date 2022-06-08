@@ -22,6 +22,7 @@ const Register = () => {
 	const [cityState, setCityState] = useState('');
 	const [PinCode, setPinCode] = useState('');
 	const [phoneNo, setPhoneNo] = useState('');
+
 	useEffect(() => {
 
 		if (userInfo) {
@@ -42,7 +43,9 @@ const Register = () => {
 		} else {
 			dispatch(register(
 				name, email, password, city, cityState, phoneNo, PinCode, Role
-			))
+			));
+			alert('Registered!');
+			navigate('/login');
 		}
 	}
 

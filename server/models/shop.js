@@ -30,7 +30,7 @@ const Shop_Schema = new mongoose.Schema({
     required: true,
   },
   ServiceId: {
-    hairCutting: {
+    HairCutting: {
       type: Array,
       Style: { type: String },
       Price: { type: String },
@@ -42,7 +42,7 @@ const Shop_Schema = new mongoose.Schema({
       Price: { type: String },
       required: false
     },
-    hairColor: {
+    HairColor: {
       type: Array,
       Style: { type: String },
       Price: { type: String },

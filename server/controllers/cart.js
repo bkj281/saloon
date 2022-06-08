@@ -36,12 +36,18 @@ const addToCart = async (req, res) => {
 const cartItems = async (req, res) => {
   try {
     if (req.params.role === "user") {
-      const cart = await Cart.find({ UserId: req.params._id });
+      const cart = await Cart.find({ UserId: req.params._id }).sort({ Date: -1 });
       return res.status(200).json(cart);
-    } else {
-      const shop = await Shop.findOne({ userId: req.params._id });
-      const cart = await Cart.find({ ShopId: shop._id });
-      return res.status(200).json(cart);
+    } else { // Updation Required
+      const shop = await Shop.find({ userId: req.params._id });
+      if (shop.length !== 0) {
+        let cart = [];
+        for (let s of shop)
+          cart = cart.concat(await Cart.find({ ShopId: s._id }).sort({ Date: -1 }));
+        return res.status(200).json(cart);
+      } else {
+        return res.status(409).json(null);
+      }
     }
   } catch (err) {
     console.log(err);

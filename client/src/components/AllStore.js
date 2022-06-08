@@ -69,6 +69,7 @@ const AllStore = () => {
 										src={item.shopImage}
 										className="card-img-top"
 										alt="Logo"
+										style={{ height: '15rem' }}
 									/>
 									<div className="card-body">
 										<h5 className="card-title">{item.ShopName}</h5>

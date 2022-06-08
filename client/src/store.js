@@ -5,7 +5,7 @@ import { userLoginReducer, userRegisterReducer } from './reducers/userReducers';
 import { shopCreateReducer, shopDetailsReducer, shopListReducer } from './reducers/shopReducers';
 import { cartReducer } from './reducers/cartReducers';
 import { orderCreateReducer } from './reducers/orderReducers';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 
 const reducer = combineReducers(
     {
@@ -39,7 +39,8 @@ const initialState = {
     },
 }
 
-const middleware = [thunk, logger];
+// const middleware = [thunk, logger];
+const middleware = [thunk];
 
 const store = createStore(
     reducer,

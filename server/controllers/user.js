@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const otpGenerator = require('otp-generators');
+const nodemailer = require('nodemailer');
 
 const createUser = async (req, res) => {
   try {
@@ -76,10 +78,92 @@ const updateInfo = async(req, res) => {
     }
 };
 
+const sendOtp = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(404).json({msg: "User doesn\'t exist!!"});
+    }
+    const otp = otpGenerator.generate(6, { alphabets: false, upperCase: false, specialChar: false });
+    const expiresIn = new Date().getTime() + 3*60*1000;
+    const user2 = await User.findByIdAndUpdate(user._id, { otp: otp, expiresIn: expiresIn });
+		await user2.save();
+    const x = await sendMail(email, otp);
+    if (x)
+      return res.status(201).json({msg: "OTP sent on email"});
+    else 
+      return res.status(403).json({msg: "An Error Occured"});
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({msg: "An error Occured!"});
+  }
+}
+
+const sendMail = async (email, otp) => {
+  try {
+    let mailTransporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PWD
+      }
+    });
+
+    let mailDetails = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: 'Password Reset',
+      html: `<h2>OTP: ${otp}</h2><p>Enter OTP within 3 minutes before it expires.</p>`
+    };
+
+    const success = await mailTransporter.sendMail(mailDetails);
+    return success;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+const verifyOtp = async (req, res) => {
+  try {
+    const {
+      email,
+      otp,
+      expiresIn
+    } = req.body;
+    const user = await User.findOne({ email: email }).select('otp expiresIn');
+    if (user.expiresIn <= expiresIn) {
+      return res.status(408).json({msg: 'Code Expired!\nTry Again!'});
+    } else if (user.otp !== otp) {
+      return res.status(406).json({msg: 'Incorrect OTP'});
+    } else {
+      return res.status(200).json({msg: 'OTP Verified!!'});
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({msg: 'An error Occured!'});
+  }
+}
+
+const updatePwd = async (req, res) => {
+  try {
+    let user = await User.findOne({ email: req.body.email }).select('password');
+    user.password = req.body.pwd;
+    await user.save(); 
+    return res.status(201).json({msg: "Password Updated!!"});
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({msg: "An Error Occured!!"});
+  }
+}
 
 module.exports = {
   createUser,
   login,
   info,
   updateInfo
+  sendOtp,
+  verifyOtp,
+  updatePwd
 };
